@@ -1,0 +1,51 @@
+
+sarak_suhag@PPH-LAP-00492:~$ mysql -u root -p
+Enter password: 
+
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| familytree         |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.00 sec)
+
+mysql> create database homefood;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| familytree         |
+| homefood           |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+6 rows in set (0.00 sec)
+
+mysql> use homefood;
+Database changed
+
+mysql> show tables ;
+Empty set (0.00 sec)
+
+mysql> CREATE TABLE user(pid int PRIMARY KEY AUTO_INCREMENT, name varchar(25), email varchar(25), gender varchar(25), address varchar(255), city varchar(25), password varchar(25));
+
+mysql> insert into user (name, email, gender, address, city, password) values ('name', 'email', 'gender', 'address', 'city', 'password')`
+
+const g = {
+    "name": "name",
+    "email": "email",
+    "gender": "gender",
+    "address": "address",
+    "city": "city",
+    "password": "password"
+}
