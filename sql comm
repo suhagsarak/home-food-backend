@@ -37,7 +37,7 @@ Database changed
 mysql> show tables ;
 Empty set (0.00 sec)
 
-mysql> CREATE TABLE user(pid int PRIMARY KEY AUTO_INCREMENT, name varchar(25), email varchar(25), gender varchar(25), address varchar(255), city varchar(25), password varchar(25));
+mysql> CREATE TABLE user(pid int PRIMARY KEY AUTO_INCREMENT, name varchar(255), email varchar(255), gender varchar(255), address varchar(255), city varchar(255), password varchar(255));
 
 mysql> insert into user (name, email, gender, address, city, password) values ('name', 'email', 'gender', 'address', 'city', 'password')`
 
