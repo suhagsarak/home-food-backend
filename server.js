@@ -1,5 +1,6 @@
 const express = require('express')
 const routerUser = require('./routes/user')
+const routerProduct = require('./routes/product')
 const bodyParser = require('body-parser')
 
 const app = express()
@@ -13,6 +14,7 @@ app.use(bodyParser.json())
 
 // use all the routers
 app.use('/user', routerUser)
+app.use('/product',routerProduct)
 
 // routes
 app.get('/', (request, response) => {

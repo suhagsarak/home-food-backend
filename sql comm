@@ -37,6 +37,14 @@ Database changed
 mysql> show tables ;
 Empty set (0.00 sec)
 
-mysql> CREATE TABLE user(pid int PRIMARY KEY AUTO_INCREMENT, name varchar(255), email varchar(255), gender varchar(255), address varchar(255), city varchar(255), pwd varchar(255));
+CREATE TABLE user(uid int PRIMARY KEY AUTO_INCREMENT, name varchar(255), email varchar(255), gender varchar(255), address varchar(255), city varchar(255), password varchar(255));
 
-mysql> insert into user (name, email, gender, address, city, pwd) values ('name', 'email', 'gender', 'address', 'city', 'pwd')`
+CREATE TABLE product(pid int PRIMARY KEY AUTO_INCREMENT, name varchar(255), category varchar(255), price int);
+
+CREATE TABLE orders(oid int PRIMARY KEY AUTO_INCREMENT, time varchar(255), totalPrice int, uid int, FOREIGN KEY(uid) REFERENCES user(uid));
+
+CREATE TABLE productsInOrders(poid int PRIMARY KEY AUTO_INCREMENT, oid int, pid int, FOREIGN KEY(oid) REFERENCES orders(oid), FOREIGN KEY(pid) REFERENCES product(pid));
+
+insert into user (name, email, gender, address, city, password) values ('name', 'email', 'gender', 'address', 'city', 'pwd')`;
+
+mysqldump -h localhost -u root -p --no-data dbname > schema.sql
