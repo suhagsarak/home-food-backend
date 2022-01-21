@@ -1,13 +1,31 @@
-const express = require('express')
-const db = require('../db')
+const express = require('express');
+const db = require('../db');
 
-const router = express.Router()
+const router = express.Router();
+
 
 // send all products 
 router.get('/',(request,response) => { 
     const statement = "select * from product";
     const connection = db.connect();
     connection.query(statement,(error,data)=>{ 
+        connection.end();
+        response.send(data);
+    })
+})
+
+// delete product
+router.get('/delete',(request,response) => {
+    
+    const pid = request.query.pid
+
+    // const statement = "delete from product where pid=" + pid;
+
+    const statement = `delete from product where pid=${pid}`
+
+
+    const connection = db. connect();
+    connection.query(statement,(error,data) => {
         connection.end();
         response.send(data);
     })
@@ -29,8 +47,9 @@ router.post('/create',(request,response) => {
 // add multiple products
 router.post('/createMultiple',(request,response) => {
     let statement = "insert into product (name, category, price) values "
-    for (let i = 0, l = request.body.length; i < l; i++) {
-        const product = request.body[i];
+    const products = request.body.products
+    for (let i = 0, l = products.length; i < l; i++) {
+        const product = products[i];
         const name = product.name
         const category = product.category
         const price = product.price
@@ -47,4 +66,39 @@ router.post('/createMultiple',(request,response) => {
     })   
 })
 
+
+
+
 module.exports = router
+
+
+
+// function f_name(): boolean {
+
+// }
+
+
+
+
+
+// function f_names(request,response) { 
+
+// }
+
+// // no need of name when passing function
+// function (request,response) { 
+
+// }
+
+// // lambda
+// (request,response) => { 
+
+// }
+
+// () => {}
+
+// (arg1) => { return arg1.name}
+
+// arg1 => arg1.name
+// arg1 => 6+6
+

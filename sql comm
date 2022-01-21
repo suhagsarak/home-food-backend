@@ -41,7 +41,7 @@ CREATE TABLE user(uid int PRIMARY KEY AUTO_INCREMENT, name varchar(255), email v
 
 CREATE TABLE product(pid int PRIMARY KEY AUTO_INCREMENT, name varchar(255), category varchar(255), price int);
 
-CREATE TABLE orders(oid int PRIMARY KEY AUTO_INCREMENT, time varchar(255), totalPrice int, uid int, FOREIGN KEY(uid) REFERENCES user(uid));
+CREATE TABLE orders(oid int PRIMARY KEY AUTO_INCREMENT, time varchar(255), totalPrice int, uid int, status varchar(255) FOREIGN KEY(uid) REFERENCES user(uid));
 
 CREATE TABLE productsInOrders(poid int PRIMARY KEY AUTO_INCREMENT, oid int, pid int, FOREIGN KEY(oid) REFERENCES orders(oid), FOREIGN KEY(pid) REFERENCES product(pid));
 
