@@ -37,7 +37,7 @@ Database changed
 mysql> show tables ;
 Empty set (0.00 sec)
 
-CREATE TABLE user(uid int PRIMARY KEY AUTO_INCREMENT, name varchar(255), email varchar(255), gender varchar(255), address varchar(255), city varchar(255), password varchar(255));
+CREATE TABLE user(uid int PRIMARY KEY AUTO_INCREMENT, name varchar(255), email varchar(255), gender varchar(255), address varchar(255), city varchar(255), type varchar(255), password varchar(255));
 
 CREATE TABLE product(pid int PRIMARY KEY AUTO_INCREMENT, name varchar(255), category varchar(255), price int);
 
@@ -47,4 +47,5 @@ CREATE TABLE productsInOrders(poid int PRIMARY KEY AUTO_INCREMENT, oid int, pid 
 
 insert into user (name, email, gender, address, city, password) values ('name', 'email', 'gender', 'address', 'city', 'pwd')`;
 
-mysqldump -h localhost -u root -p --no-data dbname > schema.sql
+mysqldump -h localhost -u root -p --no-data homefood > schema.sql
+mysqldump -h localhost -u root -p homefood > data.sql
