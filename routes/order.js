@@ -24,6 +24,33 @@ router.get("/owner-orders", (request, response) => {
   });
 });
 
+// show all owner-orders with user join
+router.get("/owner-orders-with-user", (request, response) => {
+  const statement = "select O.oid, O.time, O.totalPrice, O.status, U.uid, U.name,  U.email, U.gender, U.address,  U.city, U.type from orders O INNER JOIN user U where O.uid = U.uid";
+  const connection = db.connect();
+  connection.query(statement, (error, data) => {
+    connection.end();
+    response.send(data);
+  });
+});
+
+// show all owner-orders with user join
+router.get("/order-details", (request, response) => {
+  const oid = request.query.oid;
+  const statement = `select O.oid, O.time, O.totalPrice, O.status, U.uid, U.name,  U.email, U.gender, U.address,  U.city, U.type from orders O INNER JOIN user U where O.uid = U.uid and O.oid="${oid}"`;
+  const connection = db.connect();
+  connection.query(statement, (error, data) => {
+    if (data[0]) {
+      const statement1 = `select P.pid, P.name, P.category, P.price from orders O INNER JOIN product P INNER JOIN  productsinorders PO  where PO.oid = O.oid and PO.pid = P.pid and O.oid = "${oid}"`;
+      connection.query(statement1, (error1, data1) => {
+        data[0].products = data1;
+        connection.end();
+        response.send(data[0]);
+      });
+    }
+  });
+});
+
 // get user specific orders
 router.get("/userOrder", (request, response) => {
   const uid = request.query.uid;
