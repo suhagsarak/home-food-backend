@@ -14,6 +14,16 @@ router.get("/", (request, response) => {
   });
 });
 
+// show all owner-orders
+router.get("/owner-orders", (request, response) => {
+  const statement = "select oid, time, totalPrice, uid, status from orders";
+  const connection = db.connect();
+  connection.query(statement, (error, data) => {
+    connection.end();
+    response.send(data);
+  });
+});
+
 // get user specific orders
 router.get("/userOrder", (request, response) => {
   const uid = request.query.uid;
