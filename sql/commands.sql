@@ -15,4 +15,4 @@ insert into user (name, email, gender, address, city, password) values ('name', 
 insert into feedback(name, address, email, city, gender, feedback) values ('name', 'address', 'email', 'city', 'gender', 'feedback');
 
 mysqldump -h localhost -u root -p --no-data homefood > schema.sql
-mysqldump -h localhost -u root -p homefood > data.sql
+mysqldump -h localhost -u root -p homefood --no-create-info > data.sql
