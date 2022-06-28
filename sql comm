@@ -47,5 +47,10 @@ CREATE TABLE productsinorders(poid int PRIMARY KEY AUTO_INCREMENT, oid int, pid 
 
 insert into user (name, email, gender, address, city, password) values ('name', 'email', 'gender', 'address', 'city', 'pwd')`;
 
-mysqldump -h localhost -u root -p --no-data homefood > schema.sql
-mysqldump -h localhost -u root -p homefood > data.sql
+CREATE TABLE feedback(fid int PRIMARY KEY AUTO_INCREMENT, name varchar(255), address varchar(255), email varchar(255), city varchar(255), gender varchar(255), feedback varchar(255));
+
+insert into feedback(name, address, email, city, gender, feedback) values ('name', 'address', 'email', 'city', 'gender', 'feedback');
+
+
+-- mysqldump -h localhost -u root -p --no-data homefood > schema.sql
+-- mysqldump -h localhost -u root -p homefood > data.sql
