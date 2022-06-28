@@ -41,7 +41,7 @@ router.get("/order-details", (request, response) => {
   const connection = db.connect();
   connection.query(statement, (error, data) => {
     if (data[0]) {
-      const statement1 = `select P.pid, P.name, P.category, P.price from orders O INNER JOIN product P INNER JOIN  productsinorders PO  where PO.oid = O.oid and PO.pid = P.pid and O.oid = "${oid}"`;
+      const statement1 = `select P.pid, P.name, P.category, P.price, PO.count from orders O INNER JOIN product P INNER JOIN  productsinorders PO  where PO.oid = O.oid and PO.pid = P.pid and O.oid = "${oid}"`;
       connection.query(statement1, (error1, data1) => {
         data[0].products = data1;
         connection.end();
@@ -70,7 +70,7 @@ router.get("/details", (request, response) => {
   connection.query(statement1, (error, data) => {
     if (!error && data && data.length) {
       const order = data[0];
-      const statement2 = `select P.pid, P.name, P.category, P.price from Product P INNER JOIN productsInOrders OP on OP.pid = P.pid where OP.oid = ${oid}`;
+      const statement2 = `select P.pid, P.name, P.category, P.price, OP.count from Product P INNER JOIN productsinorders OP on OP.pid = P.pid where OP.oid = ${oid}`;
       connection.query(statement2, (error, data) => {
         if (!error) {
           connection.end();
@@ -115,20 +115,21 @@ router.post("/create", (request, response) => {
   const time = moment().format();
   const totalPrice = request.body.totalPrice;
   const uid = request.body.uid;
-  const statement1 = `insert into orders (time, totalPrice, status,uid) values ("${time}",${totalPrice}, "RECEIVED", ${uid});`;
+  const statement1 = `insert into orders (time, totalPrice, status, uid) values ("${time}",${totalPrice}, "RECEIVED", ${uid});`;
   const connection = db.connect();
   connection.query(statement1, (error, data) => {
     if (!error) {
       // add products
-      let statement2 = "insert into productsInOrders (oid, pid) values ";
+      let statement2 = "insert into productsinorders (oid, pid, count) values ";
       const products = request.body.products;
       for (let i = 0, l = products.length; i < l; i++) {
         if (i < l - 1) {
-          statement2 += `( ${data.insertId}, ${products[i]}),`;
+          statement2 += `( ${data.insertId}, ${products[i].pid}, ${products[i].count}), `;
         } else {
-          statement2 += `( ${data.insertId}, ${products[i]});`;
+          statement2 += `( ${data.insertId}, ${products[i].pid}, ${products[i].count});`;
         }
       }
+      console.log(statement2);
       const connection = db.connect();
       connection.query(statement2, (error, data) => {
         connection.end();

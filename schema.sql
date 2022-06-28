@@ -61,6 +61,7 @@ CREATE TABLE `productsinorders` (
   `poid` int NOT NULL AUTO_INCREMENT,
   `oid` int DEFAULT NULL,
   `pid` int DEFAULT NULL,
+  `count` int DEFAULT NULL,
   PRIMARY KEY (`poid`),
   KEY `oid` (`oid`),
   KEY `pid` (`pid`),

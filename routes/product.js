@@ -19,7 +19,6 @@ router.get('/categorywise', (request, response) => {
     const statement = `select * from product where category="${category}"`;
     const connection = db.connect();
     connection.query(statement, (error, data) => {
-        console.log(data);
         connection.end();
         response.send(data);
     })
