@@ -51,9 +51,9 @@ router.get("/", (request, response) => {
 router.get("/owner-orders-with-user", (request, response) => {
   const statement =
     `select 
-   O.oid, O.time, O.totalPrice, O.status,
+   O.oid, O.time, O.totalPrice, O.status, O.dpid,
    U.uid, U.name,  U.email, U.gender, U.address, U.city, U.type
-   from 
+   from
    orders O INNER JOIN 
    user U
    where
@@ -69,7 +69,7 @@ router.get("/owner-orders-with-user", (request, response) => {
 // show all customer-orders with user join
 router.get("/customer-orders", (request, response) => {
   const uid = request.query.uid;
-  const statement = `select O.oid, O.time, O.totalPrice, O.status, U.uid, U.name,  U.email, U.gender, U.address,  U.city, U.type from orders O INNER JOIN user U where O.uid = U.uid && O.uid = ${uid}`;
+  const statement = `select O.oid, O.time, O.totalPrice, O.status, O.dpid, U.uid, U.name,  U.email, U.gender, U.address,  U.city, U.type from orders O INNER JOIN user U where O.uid = U.uid && O.uid = ${uid}`;
   const connection = db.connect();
   connection.query(statement, (error, data) => {
     connection.end();

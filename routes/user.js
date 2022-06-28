@@ -14,7 +14,7 @@ router.get('/', (request, response) => {
 
 router.get('/deliverypersons', (request, response) => {
     const connection = db.connect()
-    const statement = `select dpid, name, email, gender, address, city, type, password from deliverypersons;`
+    const statement = `select dpid, name, email, gender, address, city, type, password from deliveryperson;`
     connection.query(statement, (error, data) => {
         connection.end()
         response.send(data)
