@@ -49,7 +49,16 @@ router.get("/", (request, response) => {
 
 // show all owner-orders with user join
 router.get("/owner-orders-with-user", (request, response) => {
-  const statement = "select O.oid, O.time, O.totalPrice, O.status, U.uid, U.name,  U.email, U.gender, U.address,  U.city, U.type from orders O INNER JOIN user U where O.uid = U.uid";
+  const statement =
+    `select 
+   O.oid, O.time, O.totalPrice, O.status,
+   U.uid, U.name,  U.email, U.gender, U.address, U.city, U.type
+   from 
+   orders O INNER JOIN 
+   user U
+   where
+   O.uid = U.uid
+   `;
   const connection = db.connect();
   connection.query(statement, (error, data) => {
     connection.end();
