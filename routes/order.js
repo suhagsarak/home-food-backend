@@ -4,7 +4,6 @@ const db = require("../db");
 
 const router = express.Router();
 
-
 // add orders
 router.post("/create", (request, response) => {
   const time = moment().format();
@@ -70,6 +69,17 @@ router.get("/owner-orders-with-user", (request, response) => {
 router.get("/customer-orders", (request, response) => {
   const uid = request.query.uid;
   const statement = `select O.oid, O.time, O.totalPrice, O.status, O.dpid, U.uid, U.name,  U.email, U.gender, U.address,  U.city, U.type from orders O INNER JOIN user U where O.uid = U.uid && O.uid = ${uid}`;
+  const connection = db.connect();
+  connection.query(statement, (error, data) => {
+    connection.end();
+    response.send(data);
+  });
+});
+
+// show all delivery-person-orders with user join
+router.get("/delivery-person-orders", (request, response) => {
+  const dpid = request.query.dpid;
+  const statement = `select O.oid, O.time, O.totalPrice, O.status, O.dpid, U.uid, U.name,  U.email, U.gender, U.address,  U.city, U.type from orders O INNER JOIN user U where O.uid = U.uid && O.dpid = ${dpid}`;
   const connection = db.connect();
   connection.query(statement, (error, data) => {
     connection.end();
