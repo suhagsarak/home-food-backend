@@ -52,5 +52,8 @@ CREATE TABLE feedback(fid int PRIMARY KEY AUTO_INCREMENT, name varchar(255), add
 insert into feedback(name, address, email, city, gender, feedback) values ('name', 'address', 'email', 'city', 'gender', 'feedback');
 
 
+CREATE TABLE deliveryperson(dpid int PRIMARY KEY AUTO_INCREMENT, name varchar(255), email varchar(255), gender varchar(255), address varchar(255), city varchar(255), type varchar(255), password varchar(255));
+
+
 -- mysqldump -h localhost -u root -p --no-data homefood > schema.sql
 -- mysqldump -h localhost -u root -p homefood > data.sql
